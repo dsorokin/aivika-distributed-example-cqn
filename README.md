@@ -30,7 +30,7 @@ You have to edit the configuration file on every node of the cluster. The simple
 
 For example, I decided to use two laptops connected via the Ethernet cable in local network. The first laptop works under macOS and has IP address 192.168.99.20. The second laptop works under Linux and has IP address 192.168.99.10. But if you decide to repeat the simulation experiment on one physical computer, then you can define all IP addresses as `127.0.0.1` . It will work too.
 
-So, if I want to simulate 4 queue tandems then I have to define four sections `lp1`, `lp2`, `lp3` and `lp4`. These seconds will describe the residence of 4 logical processes, each of which will simulate the corresponding queue tandem.
+So, if I want to simulate 4 queue tandems then I have to define four sections `lp1`, `lp2`, `lp3` and `lp4`. These sections will describe the residence of 4 logical processes, each of which will simulate the corresponding queue tandem.
 
 In my case the `cqn.conf` file we'll have the following contents:
 
