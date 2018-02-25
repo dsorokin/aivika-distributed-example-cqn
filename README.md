@@ -104,7 +104,7 @@ Congratulations! You have started the Aivika distributed simulation and received
 
 ### Estimating Speed of Simulation
 
-Actually, this model can be used for estimating the distributed module of Aivika. If you look at the `cqn.conf` configuration file, then you will see the `simulation-mode` parameter:
+Actually, this model can be used for estimating the distributed module of Aivika. If you look at the `cqn.conf` configuration file, then you can see the `simulation-mode` parameter:
 
 ```
 # The simulation mode. It can be either "sequential", "pseudo-sequential", "parallel" or "distributed".
