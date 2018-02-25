@@ -75,11 +75,11 @@ So, I type in the Terminal window:
 
 `$ stack exec aivika-distributed-example-cqn cqn.conf slave 2`
 
-Now I have to switch to another laptop with IP address 192.168.99.10, which works under Linux if you remember. I launch two computational node instances one by one, starting from the third logical process:
+Now I have to switch to another laptop with IP address 192.168.99.10, which works under Linux if you remember. I launch two computational node instances one by one, starting from the third logical process
 
 `$ stack exec aivika-distributed-example-cqn cqn.conf slave 3`
 
-and then proceeding with the fourth logical process:
+and then proceeding with the fourth logical process
 
 `$ stack exec aivika-distributed-example-cqn cqn.conf slave 4`
 
