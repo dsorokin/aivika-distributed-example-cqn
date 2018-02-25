@@ -100,8 +100,6 @@ Master's result: 522
 
 The last two messages are very helpful as they indicate that the corresponding processes had finished. The resulting value is a number of dequeue counts from the last queue in the corresponding tandem. Since the queue network is closed, the same transacts pass the tandems again and again. This value allows estimating the complexity of operations made within simulation. Also we can see that everything is OK.
 
-Congratulations! You have started the Aivika distributed simulation and received the result!
-
 ### Estimating Speed of Simulation
 
 Actually, this model can be used for estimating the distributed module of Aivika. If you look at the `cqn.conf` configuration file, then you can see the `simulation-mode` parameter:
