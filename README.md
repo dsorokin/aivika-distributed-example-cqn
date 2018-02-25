@@ -58,7 +58,7 @@ port = 8084
 
 It means that the first two logical processes will reside in host 192.168.99.20, while the last two logical processes will reside in other host 192.168.99.10. I could use 127.0.0.1 instead of these IP addresses. Then all logical processes would reside in my single computer.
 
-### Building the Project
+### Building Project
 
 For the first time, you will have to set up the Stack project and then compile it to build a binary executable.
 
