@@ -62,8 +62,10 @@ It means that the first two logical processes will reside in host 192.168.99.20,
 
 For the first time, you will have to set up the Stack project and then compile it to build a binary executable.
 
-`$ stack setup`
-`$ stack build`
+```
+$ stack setup
+$ stack build
+```
 
 ### Running Auxiliary Simulation Nodes
 
