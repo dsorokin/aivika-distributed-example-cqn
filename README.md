@@ -137,4 +137,6 @@ stop-time = 10000
 tandem-queues = 4
 ```
 
-This is yet a subject of the further investigation to know how fast is the distributed module of Aivika and where it can give us real benefits.
+This is yet a subject of the further investigation to know how fast is the distributed module of Aivika and where it can give us real benefits. 
+
+But as a caution, I have to say that you won't receive the improvement on 4-core processor computer. The speed of simulation will be even slower than you would have by applying the sequential Aivika simulation library. I expect to see quite different results, when the number of true parallel logical processes will be greater than 8 or even more greater... At least, we have to reserve one or even two cores for each logical process. Additionally, we have to reserve one or two cores for each computational node, which is needed for the Haskell run-time system to function properly.
