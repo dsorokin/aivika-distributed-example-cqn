@@ -28,7 +28,7 @@ Now you have to define a topology of the cluster. In other words, you have to de
 
 You have to edit the configuration file on every node of the cluster. The simplest way is to edit the default configuration file `cqn.conf` located in the root directory. I will use this file below, but you can specify other configuration files as well.
 
-For example, I decided to use two laptops connected via the Ethernet cable in local network. The first laptop works under macOS and has IP address 192.168.99.20. The second laptop works under Linux and has IP address 192.168.99.10. But if you decide to repeat the simulation experiment on one physical computer, then you can define the IP address as `127.0.0.1` . It will work too.
+For example, I decided to use two laptops connected via the Ethernet cable in local network. The first laptop works under macOS and has IP address 192.168.99.20. The second laptop works under Linux and has IP address 192.168.99.10. But if you decide to repeat the simulation experiment on one physical computer, then you can define all IP addresses as `127.0.0.1` . It will work too.
 
 So, if I want to simulate 4 queue tandems then I have to define four sections `lp1`, `lp2`, `lp3` and `lp4`. These seconds will describe the residence of 4 logical processes, each of which will simulate the corresponding queue tandem.
 
