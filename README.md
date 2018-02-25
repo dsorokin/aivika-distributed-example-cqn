@@ -111,13 +111,13 @@ Actually, this model can be used for estimating the distributed module of Aivika
 simulation-mode = distributed
 ```
 
-We used only one possible mode. But in case of other simulation modes, there is no need to launch auxiliary nodes. Also the configuration file is a single required argument for these modes.
+We used only one possible mode. But in case of other simulation modes, there is no need to launch auxiliary nodes. Also the configuration file is a single required argument for those modes.
 
 So, if you change this parameter then the simulation test can be launched by the following command:
 
 `$ stack exec aivika-distributed-example-cqn cqn.conf`
 
-In general, the meaning of possible options are as follows:
+In general, the meaning of possible options is as follows:
 
 - The `sequential` mode uses the sequential library, which is very and very fast.
 
@@ -125,7 +125,7 @@ In general, the meaning of possible options are as follows:
 
 - The `parallel` mode means that there are the corresponding number of logical processes that reside in the same computational node of the same host. Each logical process represents a separate queue tandem.
 
-- The `distributed` mode is similar to the parallel mode, but only every logical process resides in a separate computational node, which we have to configure manually them in sections [lp1], [lp2], ... . It allows creating true distributed simulations using different computers.
+- The `distributed` mode is similar to the parallel mode, but only every logical process resides in a separate computational node, which we have to configure manually in sections `[lp1]`, `[lp2]`, ... . It allows creating true distributed simulations using different computers.
 
 There are other parameters as well, where two of the most important parameters define the final time point and the number of queue tandems:
 
