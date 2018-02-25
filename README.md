@@ -5,7 +5,7 @@ This is a closed queue network model described in article "Performance evaluatio
 
 The model consists of N queue tandems where each tandem consists of a switch and k single-server queues with exponential service times. The last queues are looped back to their switches. Each switch randomly chooses the first queue of one of the tandems as destination, using uniform distribution. The queues and switches are connected with links that have nonzero propagation delays. 
 
-In the mentioned articles the model was used for estimating the conservative distributed simulation methods and their implementations. Here the same model can be used for estimating the Aivika implementation of the optimistic Time Warp method.
+In the mentioned articles the model was used for estimating the conservative distributed simulation methods and their implementations. Here the same model can be used for estimating the [Aivika](http://hackage.haskell.org/package/aivika-distributed) implementation of the optimistic Time Warp method.
 
 ### Prerequisites
 
