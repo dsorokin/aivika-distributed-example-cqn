@@ -1,7 +1,7 @@
 
 # A Closed Queue Network Model for Distributed Aivika
 
-This is closed queue network model described in article "Performance evaluation of conservative algorithms in parallel simulation languages" (2000) by R. L. Bagrodia and M. Takai. Also this model is described in article "Parallel simulation made easy with OMNeT++" (2003) by Varga, A., Sekercioglu, A.Y.
+This is closed queue network model described in article "Performance evaluation of conservative algorithms in parallel simulation languages" (2000) by R. L. Bagrodia and M. Takai. Also this model is described in article ["Parallel simulation made easy with OMNeT++"](https://www.semanticscholar.org/paper/Parallel-Simulation-Made-Easy-With-OMNeT%2B%2B-Varga/fe5a96d4ca8125e407214d5195c45a65fc543a6d?tab=abstract) (2003) by Varga, A., Sekercioglu, A.Y.
 
 The model consists of N queue tandems where each tandem consists of a switch and k single-server queues with exponential service times. The last queues are looped back to their switches. Each switch randomly chooses the first queue of one of the tandems as destination, using uniform distribution. The queues and switches are connected with links that have nonzero propagation delays. 
 
