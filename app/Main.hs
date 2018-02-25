@@ -48,7 +48,7 @@ main =
                 do putStrLn "Only the configuration file is expected here"
                    exitFailure
               PseudoSequentialSimulationMode | null args' ->
-                do backend <- initializeBackend "localhost" "8080" rtable
+                do backend <- initializeBackend "localhost" "8080" initRemoteTable
                    startMaster backend (PseudoSeqN.master backend config)
               PseudoSequentialSimulationMode ->
                 do putStrLn "Only the configuration file is expected here"
