@@ -46,8 +46,11 @@ runMasterModel :: ModelConfig
 runMasterModel config timeServerId pids n =
   runDIO m ps timeServerId
   where
+    faultTolerant = modelFaultTolerant config
     ps = defaultDIOParams { dioLoggingPriority = WARNING,
-                            dioTimeHorizon = modelTimeHorizon config }
+                            dioTimeHorizon = modelTimeHorizon config,
+                            dioProcessMonitoringEnabled = faultTolerant,
+                            dioProcessReconnectingEnabled = faultTolerant }
     m  = do registerDIO
             a <- runSimulation (masterModel config pids n) (specs config)
             terminateDIO
@@ -57,8 +60,11 @@ runMasterModel config timeServerId pids n =
 runSlaveModel :: (ModelConfig, DP.ProcessId) -> DP.Process ()
 runSlaveModel (config, timeServerId) =
   do StartMessage pids n <- DP.expect
-     let ps = defaultDIOParams { dioLoggingPriority = WARNING,
-                                 dioTimeHorizon = modelTimeHorizon config }
+     let faultTolerant = modelFaultTolerant config
+         ps = defaultDIOParams { dioLoggingPriority = WARNING,
+                                 dioTimeHorizon = modelTimeHorizon config,
+                                 dioProcessMonitoringEnabled = faultTolerant,
+                                 dioProcessReconnectingEnabled = faultTolerant }
          m  = do registerDIO
                  a <- runSimulation (slaveModel config pids n) (specs config)
                  unregisterDIO
@@ -80,11 +86,24 @@ master = \backend config nodes ->
       let n = modelTandemQueueCount config
       unless (n == 1 + length nodes) $
         error $ "Expected " ++ show (n - 1) ++ " slave nodes"
-      let timeServerParams = defaultTimeServerParams { tsLoggingPriority = WARNING }
+      let faultTolerant = modelFaultTolerant config
+          timeServerParams = defaultTimeServerParams { tsLoggingPriority = WARNING,
+                                                       tsProcessMonitoringEnabled = faultTolerant,
+                                                       tsProcessReconnectingEnabled = faultTolerant }
       timeServerId <- DP.spawnLocal $ timeServer n timeServerParams
       (masterId, masterProcess) <- runMasterModel config timeServerId pids n
       slaveIds <- forM nodes $ \node ->
         DP.spawn node ($(mkClosure 'runSlaveModel) (config, timeServerId))
+      when faultTolerant $
+        do DP.send masterId (MonitorProcessMessage timeServerId)
+           forM_ slaveIds $ \slaveId ->
+             do DP.send slaveId (MonitorProcessMessage timeServerId)
+                DP.send slaveId (MonitorProcessMessage masterId)        
+                DP.send masterId (MonitorProcessMessage slaveId)
+                forM_ slaveIds $ \slaveId' ->
+                  when (slaveId /= slaveId') $
+                  do DP.send slaveId (MonitorProcessMessage slaveId')
+                     DP.send slaveId' (MonitorProcessMessage slaveId)
       let pids = array (1, n) $ (n, masterId) : zip [1 .. (n - 1)] slaveIds
       forM_ (zip slaveIds [1..]) $ \(slaveId, i) ->
         DP.send slaveId (StartMessage pids i)
