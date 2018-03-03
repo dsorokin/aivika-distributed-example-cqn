@@ -7,6 +7,8 @@ The model consists of N queue tandems where each tandem consists of a switch and
 
 In the mentioned articles the model was used for estimating the conservative distributed simulation methods and their implementations. Here the same model can be used for estimating the [Aivika](http://hackage.haskell.org/package/aivika-distributed) implementation of the optimistic Time Warp method.
 
+Only there is a small difference with OMNeT++ model. The constant queue delay is not added to the lookahead. Instead, we can increase the lookahead parameter by 1 if needed.
+
 ### Prerequisites
 
 To repeat the test, you need a simulation cluster. It can be either a single computer such as laptop or a true cluster consisting of different computers.
@@ -137,6 +139,6 @@ tandem-queues = 4
 
 This is yet a subject of the further investigation to know how fast is the distributed module of Aivika and where it can give us real benefits. 
 
-But as a caution, I have to say that you won't receive the improvement on the 4-core processor computer. The speed of simulation will be even slower than you would have by applying the sequential Aivika simulation library. I expect to see quite different results, when the number of true parallel logical processes will be greater than 8 or even more greater... At least, we have to reserve one or even two cores for each logical process. Additionally, we have to reserve one or two cores for each computational node, which is needed for the Haskell run-time system to function properly.
+But as a caution, I have to say that you won't receive any improvement on the 4-core processor computer. The speed of simulation will be even slower than you would have by applying the sequential Aivika simulation library. I expect to see quite different results, when the number of true parallel logical processes will be greater than 8 or even more greater... At least, we have to reserve one or even two cores for each logical process. Additionally, we have to reserve one or two cores for each computational node, which is needed for the Haskell run-time system to function properly.
 
 The most important thing that we should see is that the distributed module of Aivika ought to be scalable relative to the number of logical processes.

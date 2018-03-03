@@ -33,6 +33,8 @@ data ModelConfig =
                 -- ^ the single server count
                 modelServiceTime :: Double,
                 -- ^ the service time
+                modelQueueDelay :: Double,
+                -- ^ the queue delay
                 modelLookahead :: Double,
                 -- ^ the lookahead parameter
                 modelSameTandemProb :: Double,
@@ -78,6 +80,8 @@ singleServerCountKey = "single-servers"
 
 serviceTimeKey = "service-time"
 
+queueDelayKey = "queue-delay"
+
 initialJobCountKey = "initial-jobs"
 
 lookaheadKey = "lookahead"
@@ -117,6 +121,8 @@ readModelConfig filename =
          !singleServerCount = read $ unpack $ forceEither $ lookupValue modelSection singleServerCountKey ini
          serviceTime :: Double
          !serviceTime = read $ unpack $ forceEither $ lookupValue modelSection serviceTimeKey ini
+         queueDelay :: Double
+         !queueDelay = read $ unpack $ forceEither $ lookupValue modelSection queueDelayKey ini
          initialJobCount :: Int
          !initialJobCount = read $ unpack $ forceEither $ lookupValue modelSection initialJobCountKey ini
          lookahead :: Double
@@ -140,6 +146,7 @@ readModelConfig filename =
                              modelInitialJobCount = initialJobCount,
                              modelSingleServerCount = singleServerCount,
                              modelServiceTime = serviceTime,
+                             modelQueueDelay = queueDelay,
                              modelLookahead = lookahead,
                              modelSameTandemProb = sameTandemProb,
                              modelTimeHorizon = timeHorizon,

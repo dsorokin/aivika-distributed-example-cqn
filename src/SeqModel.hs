@@ -55,6 +55,7 @@ startTandem config queues n switch =
         do let q = queues ! k
            a <- IQ.dequeue q
            randomExponentialProcess $ modelServiceTime config
+           holdProcess $ modelQueueDelay config
            liftEvent $
              if k == modelSingleServerCount config
              then switch a
