@@ -59,7 +59,8 @@ runMasterModel config timeServerId pids n =
 -- | Run the slave model.
 runSlaveModel :: (ModelConfig, DP.ProcessId) -> DP.Process ()
 runSlaveModel (config, timeServerId) =
-  do StartMessage pids n <- DP.expect
+  do let match (StartMessage pids n) = return (pids, n)
+     (pids, n) <- DP.receiveWait [DP.match match]
      let faultTolerant = modelFaultTolerant config
          ps = defaultDIOParams { dioLoggingPriority = WARNING,
                                  dioTimeHorizon = modelTimeHorizon config,
@@ -95,15 +96,11 @@ master = \backend config nodes ->
       slaveIds <- forM nodes $ \node ->
         DP.spawn node ($(mkClosure 'runSlaveModel) (config, timeServerId))
       when faultTolerant $
-        do DP.send masterId (MonitorProcessMessage timeServerId)
-           forM_ slaveIds $ \slaveId ->
-             do DP.send slaveId (MonitorProcessMessage timeServerId)
-                DP.send slaveId (MonitorProcessMessage masterId)        
-                DP.send masterId (MonitorProcessMessage slaveId)
-                forM_ slaveIds $ \slaveId' ->
-                  when (slaveId /= slaveId') $
-                  do DP.send slaveId (MonitorProcessMessage slaveId')
-                     DP.send slaveId' (MonitorProcessMessage slaveId)
+        do let allIds = timeServerId : masterId : slaveIds
+           forM_ allIds $ \pid ->
+             forM_ allIds $ \pid' ->
+               when (pid /= pid') $
+                 DP.send pid (MonitorProcessMessage pid')
       let pids = array (1, n) $ (n, masterId) : zip [1 .. (n - 1)] slaveIds
       forM_ (zip slaveIds [1..]) $ \(slaveId, i) ->
         DP.send slaveId (StartMessage pids i)
