@@ -137,6 +137,16 @@ stop-time = 10000
 tandem-queues = 4
 ```
 
+It is also very important to tune a suitable value of the time horizon for each new run in the parallel or distributed mode:
+
+```
+# Either "none" or a time horizon applied to the logical processes.
+#time-horizon = none
+time-horizon = 1000
+```
+
+Nevertheless, this parameter is ignored in the sequential and pseudo-sequential modes.
+
 This is yet a subject of the further investigation to know how fast is the distributed module of Aivika and where it can give us real benefits. 
 
 But as a caution, I have to say that you won't receive any improvement on the 4-core processor computer. The speed of simulation will be even slower than you would have by applying the sequential Aivika simulation library. I expect to see quite different results, when the number of true parallel logical processes will be greater than 8 or even more greater... At least, we have to reserve one or even two cores for each logical process. Additionally, we have to reserve one or two cores for each computational node, which is needed for the Haskell run-time system to function properly.
